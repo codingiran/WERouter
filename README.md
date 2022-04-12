@@ -33,7 +33,11 @@ WERouterParameters parameters = /*any object*/;
 WERouterRequest *request = [[WERouterRequest alloc] initWithPath:@"/mine/userInfo/" parameters:parameters];
 // 执行路由跳转
 [WERouter.sharedRouter executeRequest:request withExecutingController:self completionHandler:^(WERouterResult  _Nullable WERouterResult, NSError * _Nullable error) {
-     // call back   
+     if (error) {
+        // 处理错误
+     } else {
+        // 成功回调
+     }
 }];
 
 ```
