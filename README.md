@@ -42,3 +42,34 @@ WERouterRequest *request = [[WERouterRequest alloc] initWithPath:@"/mine/userInf
 
 ```
 
+#### 一个页面注册多个 URL
+
+```objc
+
+#pragma mark - WERouterHandlerProtocol
+
++ (NSArray<NSString *> *)multiRoutePath
+{
+    return @[
+        @"/mine/userInfo/edit",
+        @"/mine/userInfo/show"
+        ...
+    ];
+}
+
+```
+
+#### 拦截路由请求
+
+```objc
+
++ (void)handleRouterRequest:(WERouterRequest *)routerRequest withPreviousController:(__kindof UIViewController *)previousViewController completionHandler:(WERouterCompletionHandler)completionHandler
+{
+    NSString *URL = routerRequest.requestPath;
+    WERouterParameters parameters = routerRequest.parameters;
+    ...
+    [previousViewController showDetailViewController:... sender:nil];
+}
+
+```
+
