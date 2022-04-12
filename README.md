@@ -7,7 +7,7 @@
 #### 实现协议&注册URL
 
 ```objc
-@interface WEUserInfoViewController : UIViewController<WERouterHandlerProtocol>
+@interface UserInfoViewController : UIViewController<WERouterHandlerProtocol>
 
 ...
 
@@ -69,6 +69,24 @@ WERouterRequest *request = [[WERouterRequest alloc] initWithPath:@"/mine/userInf
     WERouterParameters parameters = routerRequest.parameters;
     ...
     [previousViewController showDetailViewController:... sender:nil];
+}
+
+```
+
+#### 自定义跳转页面的初始化
+
+```objc
+
++ (id<WERouterHandlerProtocol>)routerInstanceWithRouterRequest:(WERouterRequest *)routerRequest
+{
+    // 默认使用 [[Class alloc] init]，如果需要自定义初始化
+    if ([routerRequest.requestPath isEqualToString:@"/mine/userInfo/edit"]) {
+        return [[UserInfoViewController alloc] initWithType:UserInfoTypeEdit];
+    }
+    else if ([routerRequest.requestPath isEqualToString:@"/mine/userInfo/show"]) {
+        return [[UserInfoViewController alloc] initWithType:UserInfoTypeShow];
+    }
+    return nil;
 }
 
 ```
